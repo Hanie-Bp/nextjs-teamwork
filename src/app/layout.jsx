@@ -3,13 +3,13 @@ import React, { useState } from "react";
 import { ThemeProvider, createTheme } from "@mui/material/styles";
 import CssBaseline from "@mui/material/CssBaseline";
 import Header from "@/components/Header";
+import Footer from "@/components/Footer";
+import { Box, Container } from "@mui/material";
 
 export default function RootLayout({ children }) {
-
   const [mode, setMode] = useState("light");
 
   const toggleTheme = () => {
-
     setMode((prevMode) => (prevMode === "light" ? "dark" : "light"));
   };
 
@@ -32,7 +32,23 @@ export default function RootLayout({ children }) {
           }}
         >
           <Header toggleTheme={toggleTheme} mode={mode} />
-          <main style={{ flex: 1 }}>{children}</main>
+          <main style={{ flex: 1 }}>
+            <Box
+              sx={{
+                px: {
+                  xs:"20px",
+                  sm: "60px", 
+                  md: "190px", 
+                  lg: "300px",
+                  // xl: "300px", 
+                },
+                mt:"70px"
+              }}
+            >
+              {children}
+            </Box>
+          </main>
+          <Footer mode={mode} />
         </body>
       </html>
     </ThemeProvider>

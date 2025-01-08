@@ -20,9 +20,11 @@ import { Avatar } from "@mui/material";
 const drawerWidth = 240;
 const links = [
   { href: "/", title: "Home" },
-  { href: "/question", title: "Question" },
-  { href: "/aboutus", title: "About us" },
+  { href: "/questions", title: "Question" },
+  { href: "/about", title: "About us" },
 ];
+
+
 
 function Header({ toggleTheme, mode }) {
   const path = usePathname();
