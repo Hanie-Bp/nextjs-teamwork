@@ -48,6 +48,7 @@ export default function RootLayout({ children }) {
               {children}
             </Box>
           </main>
+          <Footer mode={mode}/>
         </body>
       </html>
     </ThemeProvider>
