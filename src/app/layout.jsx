@@ -36,19 +36,18 @@ export default function RootLayout({ children }) {
             <Box
               sx={{
                 px: {
-                  xs:"20px",
-                  sm: "60px", 
-                  md: "190px", 
+                  xs: "20px",
+                  sm: "60px",
+                  md: "190px",
                   lg: "300px",
-                  // xl: "300px", 
+                  // xl: "300px",
                 },
-                mt:"70px"
+                mt: "70px",
               }}
             >
               {children}
             </Box>
           </main>
-          <Footer mode={mode} />
         </body>
       </html>
     </ThemeProvider>
