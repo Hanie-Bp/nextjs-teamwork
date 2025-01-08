@@ -1,9 +1,14 @@
-import React from 'react'
+import { Box, Button, Typography } from "@mui/material";
 
-const page = () => {
+export const metadata = {
+  title: "Home",
+  description: "Home page",
+};
+
+export default function Home() {
   return (
-    <div>Home</div>
-  )
+    <Box>
+      <Typography>Home page</Typography>
+    </Box>
+  );
 }
-
-export default page
