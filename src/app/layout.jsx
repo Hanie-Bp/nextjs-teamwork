@@ -3,7 +3,6 @@ import React, { useState } from "react";
 import { ThemeProvider, createTheme } from "@mui/material/styles";
 import CssBaseline from "@mui/material/CssBaseline";
 import Header from "@/components/Header";
-import Footer from "@/components/Footer";
 import { Box, Container } from "@mui/material";
 
 export default function RootLayout({ children }) {
