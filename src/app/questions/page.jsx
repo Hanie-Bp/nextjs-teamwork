@@ -2,7 +2,13 @@ import React, { Suspense } from "react";
 import { Button, Typography, Box, CircularProgress } from "@mui/material";
 import { ArrowDownward } from "@mui/icons-material";
 import SearchInput from "@/components/SearchInput";
-// import Cards from "@/components/Cards";
+import Cards from "@/components/Cards";
+
+
+export const metadata = {
+  title: "Questions",
+  description: "Questions page",
+};
 
 const page = () => {
   return (
@@ -68,7 +74,9 @@ const page = () => {
       </Box>
 
       <div>
-        <Suspense fallback={<CircularProgress />}>{/* <Cards /> */}</Suspense>
+        <Suspense fallback={<CircularProgress />}>
+          <Cards />
+        </Suspense>
       </div>
     </>
   );

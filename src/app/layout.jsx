@@ -5,6 +5,7 @@ import CssBaseline from "@mui/material/CssBaseline";
 import Header from "@/components/Header";
 import { Box, Container } from "@mui/material";
 import Footer from "@/components/Footer";
+import "@/app/globals.css"
 
 export default function RootLayout({ children }) {
   const [mode, setMode] = useState("light");
@@ -40,7 +41,6 @@ export default function RootLayout({ children }) {
                   sm: "60px",
                   md: "190px",
                   lg: "300px",
-                  // xl: "300px",
                 },
                 mt: "70px",
               }}
