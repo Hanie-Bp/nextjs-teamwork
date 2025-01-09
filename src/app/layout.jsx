@@ -41,7 +41,6 @@ export default function RootLayout({ children }) {
                   sm: "60px",
                   md: "190px",
                   lg: "300px",
-                  // xl: "300px",
                 },
                 mt: "70px",
               }}

@@ -29,7 +29,6 @@ const CardComponent = ({ question }) => {
             justifyContent: "space-between",
             px: 7,
             py: 1.8,
-            // mx: 5,
             boxShadow: {
               xs: "0px 1px 6px rgba(80, 85, 75, 0.12)",
               dark: "0px 4px 6px rgba(0, 0, 0, 0)",
