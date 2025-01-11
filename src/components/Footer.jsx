@@ -1,13 +1,16 @@
+"use client";
 import React from "react";
 import { Box, Typography, Link } from "@mui/material";
 import GitHubIcon from "@mui/icons-material/GitHub";
+import {useThemeContext} from "@/themeContext";
 
-const Footer = ({mode}) => {
+const Footer = () => {
+ const { isDarkMode} = useThemeContext();
   return (
     <Box
       component="footer"
       sx={{
-        backgroundColor: `${mode === "light" ? "#1976d2" : "#156589"}`,
+        backgroundColor: `${isDarkMode ? "#0E4A84" : "#1976d2"}`,
         color: "white",
         py: 3,
         display: "flex",

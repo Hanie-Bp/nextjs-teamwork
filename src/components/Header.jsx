@@ -16,6 +16,7 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import DarkMode from "@/components/DarkMode";
 import { Avatar } from "@mui/material";
+import { useThemeContext } from "@/themeContext";
 
 const drawerWidth = 240;
 const links = [
@@ -24,9 +25,10 @@ const links = [
   { href: "/about", title: "About us" },
 ];
 
+function Header() {
+  const { isDarkMode } = useThemeContext();
+  // console.log(isDarkMode);
 
-
-function Header({ toggleTheme, mode }) {
   const path = usePathname();
   const [mobileOpen, setMobileOpen] = React.useState(false);
 
@@ -56,7 +58,7 @@ function Header({ toggleTheme, mode }) {
             key={item.title}
             href={item.href}
             style={{
-              color: `${mode === "light" ? "black" : "white"}`,
+              color: `${isDarkMode ? "black" : "white"}`,
               textDecoration: "none",
             }}
           >
@@ -70,7 +72,7 @@ function Header({ toggleTheme, mode }) {
       </List>
 
       <Box sx={{ mt: 2 }}>
-        <DarkMode toggleTheme={toggleTheme} />
+        <DarkMode />
       </Box>
     </Box>
   );
@@ -80,7 +82,7 @@ function Header({ toggleTheme, mode }) {
       <AppBar
         component="header"
         sx={{
-          backgroundColor: `${mode === "light" ? "#1976d2" : "#156589"}`,
+          backgroundColor: `${isDarkMode ? "#0E4A84" : "#1976d2"}`,
           position: "fixed",
         }}
         position="relative"
@@ -135,9 +137,8 @@ function Header({ toggleTheme, mode }) {
             </List>
           </Box>
 
-          {/* دکمه دارک مود فقط در دسکتاپ */}
           <Box sx={{ display: { xs: "none", sm: "block" } }}>
-            <DarkMode toggleTheme={toggleTheme} />
+            <DarkMode />
           </Box>
         </Toolbar>
       </AppBar>
