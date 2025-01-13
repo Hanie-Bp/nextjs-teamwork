@@ -6,6 +6,7 @@ import Header from "@/components/Header";
 import { Box, Container } from "@mui/material";
 import Footer from "@/components/Footer";
 
+
 export default function RootLayout({ children }) {
   const [mode, setMode] = useState("light");
 

@@ -1,3 +1,4 @@
+import HomePage from "@/components/HomePage";
 import { Box, Button, Typography } from "@mui/material";
 
 export const metadata = {
@@ -9,6 +10,7 @@ export default function Home() {
   return (
     <Box>
       <Typography>Home page</Typography>
+     <HomePage/>
     </Box>
   );
 }

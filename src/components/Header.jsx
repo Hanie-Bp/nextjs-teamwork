@@ -16,6 +16,7 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import DarkMode from "@/components/DarkMode";
 import { Avatar } from "@mui/material";
+import Home from "./HomePage";
 
 const drawerWidth = 240;
 const links = [
