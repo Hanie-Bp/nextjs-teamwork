@@ -77,7 +77,7 @@ const page = () => {
 export default page;
 
 
-// 'use client'
+
 // import React, { useEffect, useState } from 'react';
 // import { Container, Typography, List, ListItem, ListItemText } from '@mui/material';
 
