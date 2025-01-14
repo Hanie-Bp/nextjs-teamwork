@@ -5,6 +5,7 @@ import Footer from "@/components/Footer";
 import "@/app/globals.css";
 import { ThemeProvider } from "@/themeContext";
 
+
 export default function RootLayout({ children }) {
   return (
     <html lang="en">

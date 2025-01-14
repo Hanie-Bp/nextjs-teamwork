@@ -83,3 +83,38 @@ const page = () => {
 };
 
 export default page;
+
+
+
+// import React, { useEffect, useState } from 'react';
+// import { Container, Typography, List, ListItem, ListItemText } from '@mui/material';
+
+// const QuestionsPage = () => {
+//   const [questions, setQuestions] = useState([]);
+
+//   useEffect(() => {
+    
+//     const storedQuestions = JSON.parse(localStorage.getItem('questions')) || [];
+//     setQuestions(storedQuestions);
+//   }, []);
+
+//   return (
+//     <Container>
+//       <Typography variant="h4" gutterBottom>
+//         Submitted Questions
+//       </Typography>
+//       <List>
+//         {questions.map((item, index) => (
+//           <ListItem key={index}>
+//             <ListItemText
+//               primary={`Title: ${item.title}`}
+//               secondary={`Description: ${item.description}`}
+//             />
+//           </ListItem>
+//         ))}
+//       </List>
+//     </Container>
+//   );
+// };
+
+// export default QuestionsPage;
