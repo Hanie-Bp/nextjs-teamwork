@@ -1,5 +1,5 @@
 import HomePage from "@/components/HomePage";
-import { Box, Button, Typography } from "@mui/material";
+import { Box } from "@mui/material";
 
 export const metadata = {
   title: "Home",
@@ -9,7 +9,7 @@ export const metadata = {
 export default function Home() {
   return (
     <Box>
-      <Typography>Home page</Typography>
+      
      <HomePage/>
     </Box>
   );
