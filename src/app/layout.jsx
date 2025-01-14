@@ -1,38 +1,24 @@
-"use client";
-import React, { useState } from "react";
-import { ThemeProvider, createTheme } from "@mui/material/styles";
-import CssBaseline from "@mui/material/CssBaseline";
+import React from "react";
 import Header from "@/components/Header";
-import { Box, Container } from "@mui/material";
+import { Box } from "@mui/material";
 import Footer from "@/components/Footer";
+import "@/app/globals.css";
+import { ThemeProvider } from "@/themeContext";
 
 
 export default function RootLayout({ children }) {
-  const [mode, setMode] = useState("light");
-
-  const toggleTheme = () => {
-    setMode((prevMode) => (prevMode === "light" ? "dark" : "light"));
-  };
-
-  const theme = createTheme({
-    palette: {
-      mode,
-    },
-  });
-
   return (
-    <ThemeProvider theme={theme}>
-      <CssBaseline />
-      <html lang="en">
-        <body
-          style={{
-            display: "flex",
-            flexDirection: "column",
-            minHeight: "100vh",
-            margin: 0,
-          }}
-        >
-          <Header toggleTheme={toggleTheme} mode={mode} />
+    <html lang="en">
+      <body
+        style={{
+          display: "flex",
+          flexDirection: "column",
+          minHeight: "100vh",
+          margin: 0,
+        }}
+      >
+        <ThemeProvider>
+          <Header />
           <main style={{ flex: 1 }}>
             <Box
               sx={{
@@ -41,7 +27,6 @@ export default function RootLayout({ children }) {
                   sm: "60px",
                   md: "190px",
                   lg: "300px",
-                  // xl: "300px",
                 },
                 mt: "70px",
               }}
@@ -49,9 +34,9 @@ export default function RootLayout({ children }) {
               {children}
             </Box>
           </main>
-          <Footer mode={mode}/>
-        </body>
-      </html>
-    </ThemeProvider>
+          <Footer />
+        </ThemeProvider>
+      </body>
+    </html>
   );
 }
