@@ -1,9 +1,15 @@
+"use client"
 import { Box, Typography } from "@mui/material";
 import Link from "next/link";
 import React from "react";
 import DeleteIcon from "@mui/icons-material/Delete";
+import { deleteData } from "@/utils/actions";
 
 const CardComponent = ({ question }) => {
+  const time =new Date(question?.createdAt).toLocaleString();
+  const handleDelete = async () => {
+    await deleteData(`http://localhost:3000/api/v1/questions/${question._id}`);
+  };
   return (
     <Box
       sx={{
@@ -18,7 +24,7 @@ const CardComponent = ({ question }) => {
       }}
     >
       <Link
-        href={`/questions/${question.id}`}
+        href={`/questions/${question._id}`}
         style={{ width: "100%", textDecoration: "none", color: "inherit" }}
       >
         <Box
@@ -54,7 +60,7 @@ const CardComponent = ({ question }) => {
             </Typography>
           </Box>
           <Box sx={{ marginTop: { xs: 5, md: 0 } }}>
-            <Typography variant="body2">{question?.time}</Typography>
+            <Typography variant="body2">{time}</Typography>
           </Box>
         </Box>
       </Link>
@@ -80,6 +86,7 @@ const CardComponent = ({ question }) => {
             color: "red",
           },
         }}
+        onClick={handleDelete}
       >
         <DeleteIcon />
       </Box>

@@ -1,26 +1,35 @@
-import React from 'react'
-import {data} from "@/utils/data"
-import { Box } from '@mui/material'
-import CircularProgress from '@mui/material/CircularProgress';  
-import dynamic from 'next/dynamic';
+import React from "react";
+// import {data} from "@/utils/data"
+import { Box } from "@mui/material";
+import CircularProgress from "@mui/material/CircularProgress";
+import dynamic from "next/dynamic";
+import { getData } from "@/utils/actions";
 
-const CardComponent = dynamic(() => import('./CardComponent'), {
+const CardComponent = dynamic(() => import("./CardComponent"), {
   loading: () => (
-    <Box sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '100vh' }}>
-      <CircularProgress />  
+    <Box
+      sx={{
+        display: "flex",
+        justifyContent: "center",
+        alignItems: "center",
+        height: "100vh",
+      }}
+    >
+      <CircularProgress />
     </Box>
   ),
 });
 
-const Cards = () => {
-  
-  return (
-    <Box sx={{ marginBottom: '7rem', marginTop: '2.5rem' }}>
-        {data.questions?.map((q)=> (
-            <CardComponent key={q.id} question={q}/>
-        ))}
-    </Box>
-  )
-}
+const Cards = async () => {
+  const data = await getData("http://localhost:3000/api/v1/questions");
 
-export default Cards
+  return (
+    <Box sx={{ marginBottom: "7rem", marginTop: "2.5rem" }}>
+      {data?.map((q) => (
+        <CardComponent key={q._id} question={q} />
+      ))}
+    </Box>
+  );
+};
+
+export default Cards;
