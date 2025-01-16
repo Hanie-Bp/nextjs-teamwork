@@ -1,16 +1,17 @@
-import React, { Suspense } from "react";
-import { Button, Typography, Box, CircularProgress } from "@mui/material";
-import { ArrowDownward } from "@mui/icons-material";
+import { Typography, Box } from "@mui/material";
 import SearchInput from "@/components/SearchInput";
 import Cards from "@/components/Cards";
-
+import FilterCards from "@/components/FilterCards";
+import { getData } from "@/utils/actions";
 
 export const metadata = {
   title: "Questions",
   description: "Questions page",
 };
 
-const page = () => {
+const page = async () => {
+  const fetchedData = await getData("http://localhost:3000/api/v1/questions");
+
   return (
     <>
       <Box
@@ -25,7 +26,6 @@ const page = () => {
         <Typography variant="h3" sx={{ textAlign: "center", pt: 2 }}>
           Questions
         </Typography>
-
         <Box
           sx={{
             width: {
@@ -39,52 +39,14 @@ const page = () => {
         >
           <SearchInput />
         </Box>
-
-        <Box
-          sx={{
-            display: "flex",
-            flexDirection: "row",
-            alignItems: "center",
-            justifyContent: "center",
-            gap: 2,
-          }}
-        >
-          <Typography
-            variant="body1"
-            sx={{ fontWeight: "medium", textAlign: "center" }}
-          >
-            Filter By:
-          </Typography>
-
-          <Button
-            variant="body2"
-            startIcon={<ArrowDownward />}
-            sx={{ textTransform: "none" }}
-          >
-            Newer
-          </Button>
-          <Button
-            variant="body2"
-            startIcon={<ArrowDownward />}
-            sx={{ textTransform: "none" }}
-          >
-            Older
-          </Button>
-        </Box>
+        <FilterCards />
       </Box>
-
-      <div>
-        <Suspense fallback={<CircularProgress />}>
-          <Cards />
-        </Suspense>
-      </div>
+      <Cards data={fetchedData} />
     </>
   );
 };
 
 export default page;
-
-
 
 // import React, { useEffect, useState } from 'react';
 // import { Container, Typography, List, ListItem, ListItemText } from '@mui/material';
@@ -93,7 +55,7 @@ export default page;
 //   const [questions, setQuestions] = useState([]);
 
 //   useEffect(() => {
-    
+
 //     const storedQuestions = JSON.parse(localStorage.getItem('questions')) || [];
 //     setQuestions(storedQuestions);
 //   }, []);
