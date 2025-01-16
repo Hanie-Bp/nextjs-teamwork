@@ -1,57 +1,42 @@
 "use client";
 
-import { useForm } from "react-hook-form";
-import { TextField, InputAdornment, Box, Typography } from "@mui/material";
+import { usePathname, useRouter, useSearchParams } from "next/navigation";
+import { TextField, InputAdornment } from "@mui/material";
 import { Search } from "@mui/icons-material";
 
 const SearchInput = () => {
-  const {
-    register,
-    handleSubmit,
-    formState: { errors },
-  } = useForm({
-    defaultValues: {
-      query: "",
-    },
-  });
+  const router = useRouter();
+  const pathname = usePathname();
+  const searchParams = useSearchParams();
 
-  const onSubmit = (values) => {
-    console.log("Search query:", values.query);
-  };
+  function handleSearch(e) {
+    const params = new URLSearchParams(searchParams.toString());
 
-  console.log(errors);
+    if (e.target.value) params.set("search", e.target.value);
+    else params.delete("search");
+
+    router.replace(`${pathname}?${params.toString()}`);
+  }
 
   return (
-    <Box
-      component="form"
-      onSubmit={handleSubmit(onSubmit)}
+    <TextField
+      type="search"
+      placeholder="search"
       sx={{ width: "50%" }}
-    >
-      <TextField
-        fullWidth
-        required
-        type="search"
-        placeholder="search"
-        {...register("query", { required: "Search query cannot be empty" })}
-        InputProps={{
-          startAdornment: (
-            <InputAdornment position="start">
-              <Search />
-            </InputAdornment>
-          ),
-          sx: {
-            height: "38px",
-            padding: "4px 8px",
-          },
-        }}
-      />
-
-      {errors.query && (
-        <Typography sx={{ color: "red" }}>
-          {errors.query ? errors.query.message : ""}
-        </Typography>
-      )}
-    </Box>
+      fullWidth
+      onInput={handleSearch}
+      InputProps={{
+        startAdornment: (
+          <InputAdornment position="start">
+            <Search />
+          </InputAdornment>
+        ),
+        sx: {
+          height: "38px",
+          padding: "4px 8px",
+        },
+      }}
+    />
   );
 };
 
