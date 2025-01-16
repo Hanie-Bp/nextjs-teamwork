@@ -4,7 +4,6 @@ import { ArrowDownward } from "@mui/icons-material";
 import SearchInput from "@/components/SearchInput";
 import Cards from "@/components/Cards";
 
-
 export const metadata = {
   title: "Questions",
   description: "Questions page",
@@ -74,7 +73,20 @@ const page = () => {
       </Box>
 
       <div>
-        <Suspense fallback={<CircularProgress />}>
+        <Suspense
+          fallback={
+            <div
+              style={{
+                display: "flex",
+                justifyContent: "center",
+                alignItems: "center",
+                height: "50vh",
+              }}
+            >
+              <CircularProgress />
+            </div>
+          }
+        >
           <Cards />
         </Suspense>
       </div>
@@ -84,8 +96,6 @@ const page = () => {
 
 export default page;
 
-
-
 // import React, { useEffect, useState } from 'react';
 // import { Container, Typography, List, ListItem, ListItemText } from '@mui/material';
 
@@ -93,7 +103,7 @@ export default page;
 //   const [questions, setQuestions] = useState([]);
 
 //   useEffect(() => {
-    
+
 //     const storedQuestions = JSON.parse(localStorage.getItem('questions')) || [];
 //     setQuestions(storedQuestions);
 //   }, []);
