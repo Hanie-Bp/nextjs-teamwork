@@ -26,7 +26,7 @@ const Cards = ({ data }) => {
     const option = searchParams.get("FilterBy") || "newer";
     if (option === "newer")
       return new Date(b.createdAt) - new Date(a.createdAt);
-    else if (option === "older")
+    if (option === "older")
       return new Date(a.createdAt) - new Date(b.createdAt);
   });
 
