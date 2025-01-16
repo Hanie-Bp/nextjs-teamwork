@@ -23,4 +23,26 @@ export async function GET() {
 
 
   
+  // export async function POST(req) {
+  //   try {
+  //     await connectDB();
+  //     const body = await req.json();
   
+  //     const newQuestion = await Question.create(body);
+  
+  //     revalidateTag("questions");
+  //     console.log("Cache revalidated for 'questions'");
+  
+  //     return new Response(JSON.stringify(newQuestion), {
+  //       headers: { "Content-Type": "application/json" },
+  //     });
+  //   } catch (error) {
+  //     console.error("Error posting question:", error);
+  //     return new Response(JSON.stringify({ error: "Failed to post question" }), {
+  //       status: 500,
+  //       headers: { "Content-Type": "application/json" },
+  //     });
+  //   } finally {
+  //     disconnectDB();
+  //   }
+  // }
