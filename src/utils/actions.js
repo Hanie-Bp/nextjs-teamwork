@@ -4,8 +4,8 @@ import { revalidateTag } from "next/cache";
 
 // import { revalidateTag } from "next/cache";
 
-export async function getData(url) {
-  const res = await fetch(url, { next: { tags: ["questions","answers"] } });
+export async function getData(url,tags) {
+  const res = await fetch(url, { next: { tags } });
   const data = await res.json();
   return data;
 }

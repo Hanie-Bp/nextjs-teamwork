@@ -21,7 +21,7 @@ const CardComponent = dynamic(() => import("./CardComponent"), {
 });
 
 const Cards = async () => {
-  const data = await getData("http://localhost:3000/api/v1/questions");
+  const data = await getData("http://localhost:3000/api/v1/questions",['questions']);
 
   return (
     <Box sx={{ marginBottom: "7rem", marginTop: "2.5rem" }}>
