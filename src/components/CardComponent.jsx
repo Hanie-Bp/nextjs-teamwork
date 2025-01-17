@@ -1,4 +1,4 @@
-"use client"
+"use client";
 import { Box, Typography } from "@mui/material";
 import Link from "next/link";
 import React from "react";
@@ -6,9 +6,9 @@ import DeleteIcon from "@mui/icons-material/Delete";
 import { deleteData } from "@/utils/actions";
 
 const CardComponent = ({ question }) => {
-  const time =new Date(question?.createdAt).toLocaleString();
+  const time = new Date(question?.createdAt).toLocaleString();
   const handleDelete = async () => {
-    await deleteData(`http://localhost:3000/api/v1/questions/${question._id}`,["questions"]);
+    await deleteData(`http://localhost:3000/api/v1/questions/${question._id}`);
   };
   return (
     <Box

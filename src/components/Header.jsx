@@ -83,7 +83,7 @@ function Header() {
         sx={{
           backgroundColor: `${isDarkMode ? "#0E4A84" : "#1976d2"}`,
           position: "fixed",
-          zIndex:"10000"
+          zIndex: "10000",
         }}
         position="relative"
       >
