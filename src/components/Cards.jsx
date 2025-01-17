@@ -3,6 +3,7 @@
 import { useSearchParams } from "next/navigation";
 import dynamic from "next/dynamic";
 import { Box, CircularProgress } from "@mui/material";
+import { getData } from "@/utils/actions";
 
 const CardComponent = dynamic(() => import("./CardComponent"), {
   loading: () => (
@@ -19,12 +20,12 @@ const CardComponent = dynamic(() => import("./CardComponent"), {
   ),
 });
 
-const Cards = async () => {
-  const data = await getData("http://localhost:3000/api/v1/questions");
+const Cards = async ({ data }) => {
+  // const data = await getData("http://localhost:3000/api/v1/questions");
 
   return (
     <Box sx={{ marginBottom: "7rem", marginTop: "2.5rem" }}>
-      {finalData?.map((q) => (
+      {data?.map((q) => (
         <CardComponent key={q._id} question={q} />
       ))}
     </Box>

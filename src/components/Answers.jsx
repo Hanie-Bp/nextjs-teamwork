@@ -7,12 +7,30 @@ import {
   TextField,
   Typography,
 } from "@mui/material";
-import React from "react";
+import React, { useState } from "react";
 import AnswersCard from "./AnswersCard";
 import { useThemeContext } from "@/themeContext";
+import { patchData, postData } from "@/utils/actions";
+import { useForm } from "react-hook-form";
 
-function Answers({ title, description, answers, mode }) {
+function Answers({ title, description, answers, id }) {
   const { isDarkMode } = useThemeContext();
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+    reset,
+  } = useForm({
+    defaultValues: {
+      description: "",
+    },
+  });
+  // console.log(answers);
+  async function submit(data) {
+    await postData(`http://localhost:3000/api/questions/${id}`, data);
+    reset();
+  }
+
   return (
     <Stack spacing={4} marginTop={"15%"} marginBottom={"3rem"}>
       <Box borderBottom={"1px solid #d6d6d6"} paddingY={"3px"}>
@@ -29,31 +47,34 @@ function Answers({ title, description, answers, mode }) {
 
         <Stack spacing={3} divider={<Divider />}>
           {answers?.map((item) => (
-            <AnswersCard key={item.id} answerDesc={item.AnswerDesc} />
+            <AnswersCard key={item._id} answerDesc={item.description} />
           ))}
         </Stack>
 
-        <TextField
-          id="filled-basic"
-          variant="filled"
-          placeholder="write your answer..."
-          fullWidth
-          multiline
-          minRows={3}
-          sx={{
-            marginTop: "1rem",
-          }}
-        />
+        <form onSubmit={handleSubmit(submit)}>
+          <TextField
+            id="filled-basic"
+            variant="filled"
+            placeholder="write your answer..."
+            fullWidth
+            multiline
+            minRows={3}
+            sx={{
+              marginTop: "1rem",
+            }}
+            {...register("description", { required: "Answer is required!" })}
+          />
+          <Button
+            variant="contained"
+            sx={{
+              backgroundColor: `${isDarkMode ? "#0E4A84" : "primary"}`,
+            }}
+            type="submit"
+          >
+            submit
+          </Button>
+        </form>
       </Box>
-
-      <Button
-        variant="contained"
-        sx={{
-          backgroundColor: `${isDarkMode ? "#0E4A84" : "primary"}`,
-        }}
-      >
-        submit
-      </Button>
     </Stack>
   );
 }
