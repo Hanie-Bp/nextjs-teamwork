@@ -1,9 +1,8 @@
-import React from "react";
-// import {data} from "@/utils/data"
-import { Box } from "@mui/material";
-import CircularProgress from "@mui/material/CircularProgress";
+"use client";
+
+import { useSearchParams } from "next/navigation";
 import dynamic from "next/dynamic";
-import { getData } from "@/utils/actions";
+import { Box, CircularProgress } from "@mui/material";
 
 const CardComponent = dynamic(() => import("./CardComponent"), {
   loading: () => (
@@ -20,12 +19,27 @@ const CardComponent = dynamic(() => import("./CardComponent"), {
   ),
 });
 
-const Cards = async () => {
-  const data = await getData("http://localhost:3000/api/v1/questions");
+const Cards = ({ data }) => {
+  const searchParams = useSearchParams();
+
+  const sortedData = data?.sort((a, b) => {
+    const option = searchParams.get("FilterBy") || "newer";
+    if (option === "newer")
+      return new Date(b.createdAt) - new Date(a.createdAt);
+    if (option === "older")
+      return new Date(a.createdAt) - new Date(b.createdAt);
+  });
+
+  const finalData = sortedData?.filter((each) => {
+    const searchedText = searchParams.get("search");
+    if (!searchedText) return each;
+    if (each.title.toLowerCase().includes(searchedText.toLowerCase()))
+      return each;
+  });
 
   return (
     <Box sx={{ marginBottom: "7rem", marginTop: "2.5rem" }}>
-      {data?.map((q) => (
+      {finalData?.map((q) => (
         <CardComponent key={q._id} question={q} />
       ))}
     </Box>
