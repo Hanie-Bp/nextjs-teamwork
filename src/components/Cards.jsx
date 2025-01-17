@@ -19,23 +19,8 @@ const CardComponent = dynamic(() => import("./CardComponent"), {
   ),
 });
 
-const Cards = ({ data }) => {
-  const searchParams = useSearchParams();
-
-  const sortedData = data?.sort((a, b) => {
-    const option = searchParams.get("FilterBy") || "newer";
-    if (option === "newer")
-      return new Date(b.createdAt) - new Date(a.createdAt);
-    if (option === "older")
-      return new Date(a.createdAt) - new Date(b.createdAt);
-  });
-
-  const finalData = sortedData?.filter((each) => {
-    const searchedText = searchParams.get("search");
-    if (!searchedText) return each;
-    if (each.title.toLowerCase().includes(searchedText.toLowerCase()))
-      return each;
-  });
+const Cards = async () => {
+  const data = await getData("http://localhost:3000/api/v1/questions");
 
   return (
     <Box sx={{ marginBottom: "7rem", marginTop: "2.5rem" }}>
