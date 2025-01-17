@@ -1,6 +1,8 @@
 import { Typography, Box } from "@mui/material";
 import SearchInput from "@/components/SearchInput";
 import Cards from "@/components/Cards";
+import { getData } from "@/utils/actions";
+import FilterCards from "@/components/FilterCards";
 
 export const metadata = {
   title: "Questions",
