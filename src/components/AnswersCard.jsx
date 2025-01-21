@@ -3,7 +3,9 @@ import { Box, TextField } from "@mui/material";
 import DeleteIcon from "@mui/icons-material/Delete";
 import React from "react";
 
-function AnswersCard({ answerDesc }) {
+function AnswersCard({ answerDesc, id }) {
+  async function handleDelete() {}
+
   return (
     <Box
       sx={{

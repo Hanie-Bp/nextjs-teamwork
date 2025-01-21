@@ -7,7 +7,7 @@ export async function GET() {
     await connectDB();
     const questions = await Question.find();
 
-    //   revalidateTag("questions");
+    // revalidateTag("questions");
     return new Response(JSON.stringify(questions), {
       headers: {
         "Content-Type": "application/json",

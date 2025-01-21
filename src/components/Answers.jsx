@@ -27,8 +27,15 @@ function Answers({ title, description, answers, id }) {
   });
   // console.log(answers);
   async function submit(data) {
-    await postData(`http://localhost:3000/api/questions/${id}`, data);
-    reset();
+    try {
+      await postData(`http://localhost:3000/api/v1/questions/${id}`, data, [
+        "questions",
+      ]);
+      console.log("answer added");
+      reset();
+    } catch (error) {
+      console.log(error);
+    }
   }
 
   return (
@@ -47,11 +54,15 @@ function Answers({ title, description, answers, id }) {
 
         <Stack spacing={3} divider={<Divider />}>
           {answers?.map((item) => (
-            <AnswersCard key={item._id} answerDesc={item.description} />
+            <AnswersCard
+              key={item._id}
+              answerDesc={item.description}
+              id={item._id}
+            />
           ))}
         </Stack>
 
-        <form onSubmit={handleSubmit(submit)}>
+        <Stack component={"form"} onSubmit={handleSubmit(submit)}>
           <TextField
             id="filled-basic"
             variant="filled"
@@ -60,9 +71,11 @@ function Answers({ title, description, answers, id }) {
             multiline
             minRows={3}
             sx={{
-              marginTop: "1rem",
+              marginY: "1rem",
             }}
             {...register("description", { required: "Answer is required!" })}
+            error={!!errors.description}
+            helperText={errors.description?.message}
           />
           <Button
             variant="contained"
@@ -73,7 +86,7 @@ function Answers({ title, description, answers, id }) {
           >
             submit
           </Button>
-        </form>
+        </Stack>
       </Box>
     </Stack>
   );

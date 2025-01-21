@@ -8,7 +8,9 @@ import { deleteData } from "@/utils/actions";
 const CardComponent = ({ question }) => {
   const time = new Date(question?.createdAt).toLocaleString();
   const handleDelete = async () => {
-    await deleteData(`http://localhost:3000/api/v1/questions/${question._id}`);
+    await deleteData(`http://localhost:3000/api/v1/questions/${question._id}`, [
+      "questions",
+    ]);
   };
   return (
     <Box
