@@ -23,4 +23,36 @@ export async function GET() {
 
 
   
+export async function POST(req) {
+
+ 
+try {
   
+  const body = await req.json();
+
+  await connectDB();
+
+  const questions = await Question.create(body)
+return new Response(JSON.stringify(questions) , {
+
+  headers: {
+
+    "content-Type": "application",
+  },
+})
+} catch (error) {
+  console.log( "Error createing post:" , error );
+  return new Response(JSON.stringify({ error: "Failed to create question" }), {
+    status: 500,
+    headers: {
+      "Content-Type": "application/json",
+    },
+  });
+
+}
+
+finally{
+
+  disconnectDB();
+}
+  }
