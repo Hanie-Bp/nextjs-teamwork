@@ -2,8 +2,9 @@ import React, { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { TextField, Button, Box, Typography } from '@mui/material';
 import ConfirmModal from './Modal';
+import { postData } from '@/utils/actions';
 
-const QuestionForm = ({ onSave }) => {
+const QuestionForm = () => {
   const { register, handleSubmit, formState: { errors }, reset } = useForm({
     defaultValues: {
       title: '',
@@ -21,12 +22,25 @@ const QuestionForm = ({ onSave }) => {
 
   const handleCloseModal = () => setOpenModal(false);
 
-  const handleConfirm = () => {
-    onSave(formData); 
-    setOpenModal(false);
-    reset();
-  };
+  const handleConfirm = async () => {
+    
+    try {
+      
+      await postData('http://localhost:3000/api/v1/questions' , formData);
+      
+      
+    } catch (error) {
 
+      console.error('Error saving question:', error);
+      
+    } finally {
+
+      setOpenModal(false);
+      reset();
+    }
+   
+    
+  };
   return (
     <>
 
