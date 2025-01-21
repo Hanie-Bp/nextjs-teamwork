@@ -2,6 +2,7 @@ import { connectDB, disconnectDB } from "@/db/connectDB";
 import Question from "@/db/models/Question";
 import { revalidateTag } from "next/cache";
 
+// GET all the questions
 export async function GET() {
   try {
     await connectDB();
@@ -21,6 +22,7 @@ export async function GET() {
   }
 }
 
+// POST a question
 export async function POST(req) {
   try {
     const body = await req.json();
