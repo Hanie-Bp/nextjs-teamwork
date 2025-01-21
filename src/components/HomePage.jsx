@@ -1,26 +1,12 @@
 'use client'
 
-import React, { useState } from 'react';
+
 import QuestionForm from './QuestionsForm';
 import { Container, Typography, Stack, Box, Button } from '@mui/material';
 import Image from 'next/image';
 
 const HomePage = () => {
-  const [questions, setQuestions] = useState([]);
 
-  const handleSaveQuestion = (questionData) => {
-    
-    const storedQuestions = JSON.parse(localStorage.getItem('questions')) || [];
-    
-    
-    const updatedQuestions = [...storedQuestions, questionData];
-    
-  
-    localStorage.setItem('questions', JSON.stringify(updatedQuestions));
-    
-    
-    setQuestions(updatedQuestions);
-  };
 
   return (
     <Container
@@ -75,7 +61,7 @@ const HomePage = () => {
         </Stack>
 
 
-      <QuestionForm onSave={handleSaveQuestion} />
+      <QuestionForm/>
 
       
     </Container>
