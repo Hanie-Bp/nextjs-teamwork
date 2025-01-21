@@ -31,7 +31,7 @@ function Answers({ title, description, answers, id }) {
       await postData(`http://localhost:3000/api/v1/questions/${id}`, data, [
         "questions",
       ]);
-      console.log("answer added");
+      // console.log("answer added");
       reset();
     } catch (error) {
       console.log(error);
@@ -57,7 +57,8 @@ function Answers({ title, description, answers, id }) {
             <AnswersCard
               key={item._id}
               answerDesc={item.description}
-              id={item._id}
+              questionId={id}
+              answerId={item._id}
             />
           ))}
         </Stack>

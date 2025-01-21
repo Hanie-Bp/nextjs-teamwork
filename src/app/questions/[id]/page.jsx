@@ -6,10 +6,6 @@ import { CircularProgress } from "@mui/material";
 
 const page = async ({ params }) => {
   try {
-    // const info = data.questions.filter((item) => item.id === params.id)[0];
-    // const info = await getData(
-    //   `http://localhost:3000/api/v1/questions/${params.id}`
-    // );
     const info = await getData(
       `http://localhost:3000/api/v1/questions/${params.id}`
     );

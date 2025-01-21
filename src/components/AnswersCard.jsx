@@ -1,10 +1,53 @@
 "use client";
 import { Box, TextField } from "@mui/material";
 import DeleteIcon from "@mui/icons-material/Delete";
-import React from "react";
+import React, { useState } from "react";
+import { deleteData, patchData } from "@/utils/actions";
 
-function AnswersCard({ answerDesc, id }) {
-  async function handleDelete() {}
+function AnswersCard({ answerDesc, questionId, answerId }) {
+  const [desc, setDesc] = useState(answerDesc);
+  const [tempDesc, setTempDesc] = useState(answerDesc);
+
+  // delete an answer
+  async function handleDelete() {
+    try {
+      await deleteData(
+        `http://localhost:3000/api/v1/questions/${questionId}/answers/${answerId}`,
+        ["answers"]
+      );
+      // console.log(`this ${answerId} deleted`);
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
+  //update an answer
+  async function handleUpdate() {
+    if (desc !== tempDesc) {
+      try {
+        await patchData(
+          `http://localhost:3000/api/v1/questions/${questionId}/answers/${answerId}`,
+          { description: tempDesc },
+          ["answers"]
+        );
+        setDesc(tempDesc);
+        // console.log(`Answer ${answerId} updated`);
+      } catch (error) {
+        console.log("Error updating answer:", error);
+      }
+    }
+  }
+
+  function handleBlur() {
+    handleUpdate();
+  }
+
+  function handleKeyDown(e) {
+    if (e.key === "Enter") {
+      e.preventDefault();
+      handleUpdate();
+    }
+  }
 
   return (
     <Box
@@ -20,7 +63,12 @@ function AnswersCard({ answerDesc, id }) {
         id="outlined-basic"
         color="black"
         variant="outlined"
-        defaultValue={answerDesc}
+        value={tempDesc}
+        onChange={(e) => {
+          setTempDesc(e.target.value);
+        }}
+        onBlur={handleBlur}
+        onKeyDown={handleKeyDown}
         multiline
         minRows={3}
         sx={{
@@ -34,6 +82,7 @@ function AnswersCard({ answerDesc, id }) {
         sx={{
           cursor: "pointer",
         }}
+        onClick={handleDelete}
       >
         <DeleteIcon
           color="action"

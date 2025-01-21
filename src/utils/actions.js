@@ -12,7 +12,13 @@ export async function getData(url, tags) {
 }
 
 export async function patchData(url, data, tags) {
-  await fetch(url, { method: "PATCH", body: JSON.stringify(data) });
+  await fetch(url, {
+    method: "PATCH",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(data),
+  });
   revalidateTag(tags[0]);
   return data;
 }

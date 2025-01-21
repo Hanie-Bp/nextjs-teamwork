@@ -21,7 +21,7 @@ export async function PATCH(request, { params }) {
       },
     });
   } catch (error) {
-    console.error("Error fetching answers:", error);
+    console.error("Error updating the answer:", error);
   } finally {
     await disconnectDB();
   }

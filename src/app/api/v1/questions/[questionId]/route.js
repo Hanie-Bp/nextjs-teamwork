@@ -44,7 +44,7 @@ export async function POST(request, { params }) {
       status: 201,
     });
   } catch (error) {
-    console.error("Error fetching answers:", error);
+    console.error("Error adding the answer:", error);
   } finally {
     await disconnectDB();
   }
@@ -55,10 +55,11 @@ export async function DELETE(req, { params }) {
   try {
     const { questionId } = params;
     await connectDB();
-    const question = await Question.findByIdAndDelete(questionId);
+    const question = await Question.findOneAndDelete({ _id: questionId });
     if (!question) {
       return new Response("question not found", { status: 404 });
     }
+    console.log("Question deleted:", question);
     //   revalidateTag("questions");
     return new Response(JSON.stringify({ success: true }), {
       headers: { "Content-Type": "application/json" },
