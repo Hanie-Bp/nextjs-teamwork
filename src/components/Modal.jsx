@@ -1,7 +1,6 @@
 // import React from 'react';
 // import { Modal, Box, Typography, Button } from '@mui/material';
 
-
 // const ConfirmModal = ({ open, onClose, onConfirm, title, description }) => {
 //   return (
 //     <Modal
@@ -14,10 +13,10 @@
 //         <Typography id="modal-title" variant="h6" component="h2">
 //           Are You Sure ?
 //         </Typography>
-        
+
 //          {/* <Typography id="modal-description" sx={{ mt: 2 }}>
 //            Title: <strong>{title}</strong>
-        
+
 //          </Typography>
 //          <Typography id="modal-description" sx={{ mt: 2 }}>
 //            Are you sure you want to submit the question: <strong>{description}</strong>?
@@ -45,38 +44,45 @@
 
 // export default ConfirmModal;
 
-
-
-
-
 import React from "react";
-import { Dialog, DialogActions, DialogContent, DialogTitle, Button, Box } from "@mui/material";
+import {
+  Dialog,
+  DialogActions,
+  DialogContent,
+  DialogTitle,
+  Button,
+  Box,
+} from "@mui/material";
+import { useThemeContext } from "@/themeContext";
 
 const ConfirmationModal = ({ open, onClose, onConfirm, title, message }) => {
+  const { isDarkMode } = useThemeContext();
+
   return (
     <Dialog open={open} onClose={onClose}>
-    <Box
-      sx={{
-        width: 400, 
-        // maxWidth: "100%", 
-        // minHeight: 50, 
-        
-      }}
-    >
-      <DialogTitle>Are You Sure</DialogTitle>
-      <DialogContent>{message}</DialogContent>
-      <DialogActions>
-        <Button onClick={onClose} color="secondary">
-          Cancel
-        </Button>
-        <Button onClick={onConfirm} color="primary">
-          Yes
-        </Button>
-      </DialogActions>
+      <Box
+        sx={{
+          width: 400,
+          // maxWidth: "100%",
+          // minHeight: 50,
+        }}
+      >
+        <DialogTitle>Are You Sure</DialogTitle>
+        <DialogContent>{message}</DialogContent>
+        <DialogActions>
+          <Button onClick={onClose} color="secondary">
+            Cancel
+          </Button>
+          <Button
+            onClick={onConfirm}
+            color={`${isDarkMode ? "info" : "primary"}`}
+          >
+            Yes
+          </Button>
+        </DialogActions>
       </Box>
     </Dialog>
   );
 };
 
 export default ConfirmationModal;
-

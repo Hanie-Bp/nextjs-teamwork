@@ -11,7 +11,7 @@ import React from "react";
 import AnswersCard from "./AnswersCard";
 import { useThemeContext } from "@/themeContext";
 
-function Answers({ title, description, answers, mode }) {
+function Answers({ title, description, answers }) {
   const { isDarkMode } = useThemeContext();
   return (
     <Stack spacing={4} marginTop={"15%"} marginBottom={"3rem"}>
