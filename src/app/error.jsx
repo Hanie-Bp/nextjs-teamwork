@@ -17,15 +17,15 @@ const ErrorPage = ({ error, reset }) => {
         justifyContent: "center",
         alignItems: "center",
         height: "100vh", 
-        backgroundColor: "#578f99", 
-        color: "#721c24", 
+        backgroundColor: "#e8cfd5", 
+        // color: "#721c24", 
         textAlign: "center",
-        // padding: "1rem",
-        // position: "absolute", 
-        // top: 0,
-        // left: 0,
-        // right: 0,
-        // bottom: 0,
+        padding: "1rem",
+        position: "absolute", 
+        top: 0,
+        left: 0,
+        right: 0,
+        bottom: 0,
       }}
     >
       <Typography variant="h4" sx={{ fontWeight: "bold" }}>
