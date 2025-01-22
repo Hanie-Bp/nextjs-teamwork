@@ -37,7 +37,7 @@ return new Response(JSON.stringify(questions) , {
 
   headers: {
 
-    "content-Type": "application",
+    "content-Type": "application/json",
   },
 })
 } catch (error) {
