@@ -1,5 +1,7 @@
 import HomePage from "@/components/HomePage";
+
 import { Box } from "@mui/material";
+
 
 export const metadata = {
   title: "Home",
@@ -12,5 +14,7 @@ export default function Home() {
       
      <HomePage/>
     </Box>
+
+
   );
 }

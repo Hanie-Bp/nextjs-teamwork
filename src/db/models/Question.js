@@ -1,3 +1,4 @@
+import mongoose from "mongoose";
 import { Schema, model, models } from "mongoose";
 
 const questionSchema = new Schema({
@@ -11,7 +12,7 @@ const questionSchema = new Schema({
   },
   answers: [
     {
-      type: Schema.Types.ObjectId,
+      type:  mongoose.Schema.Types.ObjectId,
       ref: "Answer", 
     },
   ],

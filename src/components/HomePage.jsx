@@ -7,6 +7,7 @@ import Image from "next/image";
 const HomePage = () => {
   const { isDarkMode } = useThemeContext();
 
+
   return (
     <Container sx={{ mt: 4, maxWidth: "lg", padding: 2 }}>
       <Stack
