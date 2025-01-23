@@ -22,7 +22,7 @@ const QuestionForm = () => {
 
   const [openModal, setOpenModal] = useState(false);
   const [formData, setFormData] = useState(null);
-
+  const [loading, setLoading] = useState(false);
   const onSubmit = (data) => {
     setFormData(data);
     setOpenModal(true);
@@ -31,11 +31,13 @@ const QuestionForm = () => {
   const handleCloseModal = () => setOpenModal(false);
 
   const handleConfirm = async () => {
+    setLoading(true);
     try {
       await postData("http://localhost:3000/api/v1/questions", formData);
     } catch (error) {
       console.error("Error saving question:", error);
     } finally {
+      setLoading(false);
       setOpenModal(false);
       reset();
     }
@@ -98,6 +100,7 @@ const QuestionForm = () => {
         description={formData?.description}
         onClose={handleCloseModal}
         onConfirm={handleConfirm}
+        loading={loading}
       />
     </>
   );
