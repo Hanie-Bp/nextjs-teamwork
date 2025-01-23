@@ -10,7 +10,7 @@ export const metadata = {
 };
 
 const page = async () => {
-  const fetchedData = await getData("http://localhost:3000/api/v1/questions");
+  const fetchedData = await getData("http://localhost:3000/api/v1/questions",["questions"]);
 
   return (
     <>

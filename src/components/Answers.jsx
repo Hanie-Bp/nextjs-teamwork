@@ -2,6 +2,7 @@
 import {
   Box,
   Button,
+  CircularProgress,
   Divider,
   Stack,
   TextField,
@@ -12,6 +13,7 @@ import AnswersCard from "./AnswersCard";
 import { useThemeContext } from "@/themeContext";
 import { patchData, postData } from "@/utils/actions";
 import { useForm } from "react-hook-form";
+import dynamic from "next/dynamic";
 
 function Answers({ title, description, answers, id }) {
   const { isDarkMode } = useThemeContext();
@@ -37,6 +39,21 @@ function Answers({ title, description, answers, id }) {
       console.log(error);
     }
   }
+
+  const AnswersCard = dynamic(() => import("./AnswersCard"), {
+    loading: () => (
+      <Box
+        sx={{
+          display: "flex",
+          justifyContent: "center",
+          alignItems: "center",
+          height: "100vh",
+        }}
+      >
+        <CircularProgress />
+      </Box>
+    ),
+  });
 
   return (
     <Stack spacing={4} marginTop={"15%"} marginBottom={"3rem"}>

@@ -13,7 +13,7 @@ function AnswersCard({ answerDesc, questionId, answerId }) {
     try {
       await deleteData(
         `http://localhost:3000/api/v1/questions/${questionId}/answers/${answerId}`,
-        ["answers"]
+        ["questions"]
       );
       // console.log(`this ${answerId} deleted`);
     } catch (error) {
@@ -28,7 +28,7 @@ function AnswersCard({ answerDesc, questionId, answerId }) {
         await patchData(
           `http://localhost:3000/api/v1/questions/${questionId}/answers/${answerId}`,
           { description: tempDesc },
-          ["answers"]
+          ["questions"]
         );
         setDesc(tempDesc);
         // console.log(`Answer ${answerId} updated`);
