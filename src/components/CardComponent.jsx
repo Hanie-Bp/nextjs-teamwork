@@ -1,17 +1,27 @@
 "use client";
-import { Box, Typography } from "@mui/material";
+import { Box, CircularProgress, Typography } from "@mui/material";
 import Link from "next/link";
-import React from "react";
+import React, { useState } from "react";
 import DeleteIcon from "@mui/icons-material/Delete";
 import { deleteData } from "@/utils/actions";
 
 const CardComponent = ({ question }) => {
+  const [loading, setLoading] = useState(false);
   const time = new Date(question?.createdAt).toLocaleString();
   const handleDelete = async () => {
-    await deleteData(`http://localhost:3000/api/v1/questions/${question._id}`, [
-      "questions",
-    ]);
+    try {
+      setLoading(true)
+      await deleteData(
+        `http://localhost:3000/api/v1/questions/${question._id}`,
+        ["questions"]
+      );
+    } catch (error) {
+      console.log(error);
+    } finally {
+      setLoading(false);
+    }
   };
+
   return (
     <Box
       sx={{
@@ -68,8 +78,10 @@ const CardComponent = ({ question }) => {
       </Link>
 
       <Box
+        component="button"
         sx={{
           width: { xs: "100%", lg: "5rem" },
+          backgroundColor:"white",
           marginX: "1.5rem",
           marginTop: { xs: "0.75rem", lg: "0" },
           cursor: "pointer",
@@ -88,9 +100,21 @@ const CardComponent = ({ question }) => {
             color: "red",
           },
         }}
+        disabled={loading}
         onClick={handleDelete}
       >
-        <DeleteIcon />
+        {loading ? (
+          <CircularProgress size={20} />
+        ) : (
+          <DeleteIcon
+            color="action"
+            sx={{
+              "&:hover": {
+                color: "red",
+              },
+            }}
+          />
+        )}
       </Box>
     </Box>
   );

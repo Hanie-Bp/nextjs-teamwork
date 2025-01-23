@@ -1,16 +1,18 @@
 "use client";
-import { Box, TextField } from "@mui/material";
+import { Box, CircularProgress, TextField } from "@mui/material";
 import DeleteIcon from "@mui/icons-material/Delete";
 import React, { useState } from "react";
 import { deleteData, patchData } from "@/utils/actions";
 
 function AnswersCard({ answerDesc, questionId, answerId }) {
+  const [loading, setLoading] = useState(false);
   const [desc, setDesc] = useState(answerDesc);
   const [tempDesc, setTempDesc] = useState(answerDesc);
 
   // delete an answer
   async function handleDelete() {
     try {
+      setLoading(true)
       await deleteData(
         `http://localhost:3000/api/v1/questions/${questionId}/answers/${answerId}`,
         ["questions"]
@@ -18,6 +20,8 @@ function AnswersCard({ answerDesc, questionId, answerId }) {
       // console.log(`this ${answerId} deleted`);
     } catch (error) {
       console.log(error);
+    }finally {
+      setLoading(false)
     }
   }
 
@@ -76,22 +80,30 @@ function AnswersCard({ answerDesc, questionId, answerId }) {
         }}
       />
       <Box
+        component="button"
         position={"absolute"}
         top={"40%"}
         right={"4%"}
         sx={{
           cursor: "pointer",
+          background: "white",
+          border: "none",
         }}
         onClick={handleDelete}
+        disabled={loading}
       >
-        <DeleteIcon
-          color="action"
-          sx={{
-            "&:hover": {
-              color: "red",
-            },
-          }}
-        />
+        {loading ? (
+          <CircularProgress size={20} />
+        ) : (
+          <DeleteIcon
+            color="action"
+            sx={{
+              "&:hover": {
+                color: "red",
+              },
+            }}
+          />
+        )}
       </Box>
     </Box>
   );
