@@ -1,5 +1,4 @@
 import React, { Suspense } from "react";
-import { data } from "@/utils/data";
 import Answers from "@/components/Answers";
 import { getData } from "@/utils/actions";
 import { CircularProgress } from "@mui/material";
