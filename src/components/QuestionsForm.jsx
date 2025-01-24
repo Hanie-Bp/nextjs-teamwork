@@ -33,7 +33,7 @@ const QuestionForm = () => {
   const handleConfirm = async () => {
     setLoading(true);
     try {
-      await postData("http://localhost:3000/api/v1/questions", formData);
+      await postData("http://localhost:3000/api/v1/questions", formData,["questions"]);
     } catch (error) {
       console.error("Error saving question:", error);
     } finally {

@@ -10,7 +10,14 @@ import {
 } from "@mui/material";
 import { useThemeContext } from "@/themeContext";
 
-const ConfirmationModal = ({ open, onClose, onConfirm, title, message, loading }) => {
+const ConfirmationModal = ({
+  open,
+  onClose,
+  onConfirm,
+  title,
+  message,
+  loading,
+}) => {
   const { isDarkMode } = useThemeContext();
 
   return (
