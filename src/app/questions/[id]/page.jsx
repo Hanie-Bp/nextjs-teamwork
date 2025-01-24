@@ -9,7 +9,7 @@ const page = async ({ params }) => {
       `http://localhost:3000/api/v1/questions/${params.id}`,
       ["questions"]
     );
-    // console.log(info);
+    // console.log(info.answers);
 
     return (
       <Suspense fallback={<CircularProgress />}>
