@@ -12,7 +12,7 @@ function AnswersCard({ answerDesc, questionId, answerId }) {
   // delete an answer
   async function handleDelete() {
     try {
-      setLoading(true)
+      setLoading(true);
       await deleteData(
         `http://localhost:3000/api/v1/questions/${questionId}/answers/${answerId}`,
         ["questions"]
@@ -20,8 +20,8 @@ function AnswersCard({ answerDesc, questionId, answerId }) {
       // console.log(`this ${answerId} deleted`);
     } catch (error) {
       console.log(error);
-    }finally {
-      setLoading(false)
+    } finally {
+      setLoading(false);
     }
   }
 
@@ -83,7 +83,7 @@ function AnswersCard({ answerDesc, questionId, answerId }) {
         component="button"
         position={"absolute"}
         top={"40%"}
-        right={"4%"}
+        right={"3%"}
         sx={{
           cursor: "pointer",
           background: "white",
