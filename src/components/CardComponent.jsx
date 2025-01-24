@@ -81,7 +81,7 @@ const CardComponent = ({ question }) => {
         component="button"
         sx={{
           width: { xs: "100%", lg: "5rem" },
-          backgroundColor:"white",
+          backgroundColor:"inherit",
           marginX: "1.5rem",
           marginTop: { xs: "0.75rem", lg: "0" },
           cursor: "pointer",

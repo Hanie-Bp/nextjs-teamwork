@@ -86,7 +86,7 @@ function AnswersCard({ answerDesc, questionId, answerId }) {
         right={"3%"}
         sx={{
           cursor: "pointer",
-          background: "white",
+          background: "inherit",
           border: "none",
         }}
         onClick={handleDelete}
