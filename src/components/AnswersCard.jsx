@@ -1,9 +1,58 @@
 "use client";
-import { Box, TextField } from "@mui/material";
+import { Box, CircularProgress, TextField } from "@mui/material";
 import DeleteIcon from "@mui/icons-material/Delete";
-import React from "react";
+import React, { useState } from "react";
+import { deleteData, patchData } from "@/utils/actions";
 
-function AnswersCard({ answerDesc }) {
+function AnswersCard({ answerDesc, questionId, answerId }) {
+  const [loading, setLoading] = useState(false);
+  const [desc, setDesc] = useState(answerDesc);
+  const [tempDesc, setTempDesc] = useState(answerDesc);
+
+  // delete an answer
+  async function handleDelete() {
+    try {
+      setLoading(true);
+      await deleteData(
+        `http://localhost:3000/api/v1/questions/${questionId}/answers/${answerId}`,
+        ["questions"]
+      );
+      // console.log(`this ${answerId} deleted`);
+    } catch (error) {
+      console.log(error);
+    } finally {
+      setLoading(false);
+    }
+  }
+
+  //update an answer
+  async function handleUpdate() {
+    if (desc !== tempDesc) {
+      try {
+        await patchData(
+          `http://localhost:3000/api/v1/questions/${questionId}/answers/${answerId}`,
+          { description: tempDesc },
+          ["questions"]
+        );
+        setDesc(tempDesc);
+        // console.log(`Answer ${answerId} updated`);
+      } catch (error) {
+        console.log("Error updating answer:", error);
+      }
+    }
+  }
+
+  function handleBlur() {
+    handleUpdate();
+  }
+
+  function handleKeyDown(e) {
+    if (e.key === "Enter") {
+      e.preventDefault();
+      handleUpdate();
+    }
+  }
+
   return (
     <Box
       sx={{
@@ -18,7 +67,12 @@ function AnswersCard({ answerDesc }) {
         id="outlined-basic"
         color="black"
         variant="outlined"
-        defaultValue={answerDesc}
+        value={tempDesc}
+        onChange={(e) => {
+          setTempDesc(e.target.value);
+        }}
+        onBlur={handleBlur}
+        onKeyDown={handleKeyDown}
         multiline
         minRows={3}
         sx={{
@@ -26,21 +80,30 @@ function AnswersCard({ answerDesc }) {
         }}
       />
       <Box
+        component="button"
         position={"absolute"}
         top={"40%"}
-        right={"4%"}
+        right={"3%"}
         sx={{
           cursor: "pointer",
+          background: "white",
+          border: "none",
         }}
+        onClick={handleDelete}
+        disabled={loading}
       >
-        <DeleteIcon
-          color="action"
-          sx={{
-            "&:hover": {
-              color: "red",
-            },
-          }}
-        />
+        {loading ? (
+          <CircularProgress size={20} />
+        ) : (
+          <DeleteIcon
+            color="action"
+            sx={{
+              "&:hover": {
+                color: "red",
+              },
+            }}
+          />
+        )}
       </Box>
     </Box>
   );
