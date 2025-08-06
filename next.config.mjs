@@ -8,6 +8,7 @@ const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
 const nextConfig = {
+  output: 'standalone',
   webpack: (config) => {
     config.cache = {
       type: "filesystem",
@@ -17,6 +18,9 @@ const nextConfig = {
       },
     };
     return config;
+  },
+  experimental: {
+    serverComponentsExternalPackages: ['mongoose'],
   },
 };
 
