@@ -3,12 +3,15 @@ import Answers from "@/components/Answers";
 import { getData } from "@/utils/actions";
 import { CircularProgress } from "@mui/material";
 
+// Force dynamic rendering to prevent build-time issues
+export const dynamic = "force-dynamic";
+
 const page = async ({ params }) => {
   try {
-    const info = await getData(
-      `http://localhost:3000/api/v1/questions/${params.id}`,
-      ["questions"]
-    );
+    const baseUrl = process.env.NEXT_PUBLIC_API_URL || "http://localhost:3000";
+    const info = await getData(`${baseUrl}/api/v1/questions/${params.id}`, [
+      "questions",
+    ]);
     // console.log(info.answers);
 
     return (
@@ -23,7 +26,16 @@ const page = async ({ params }) => {
       </Suspense>
     );
   } catch (error) {
-    return new Error(error.message);
+    console.error("Error fetching question:", error);
+    // Return a fallback UI for build time
+    return (
+      <div style={{ padding: "2rem", textAlign: "center" }}>
+        <h2>Question not found</h2>
+        <p>
+          The question you're looking for doesn't exist or couldn't be loaded.
+        </p>
+      </div>
+    );
   }
 };
 

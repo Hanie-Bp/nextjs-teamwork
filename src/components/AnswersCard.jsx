@@ -13,8 +13,10 @@ function AnswersCard({ answerDesc, questionId, answerId }) {
   async function handleDelete() {
     try {
       setLoading(true);
+      const baseUrl =
+        process.env.NEXT_PUBLIC_API_URL || "http://localhost:3000";
       await deleteData(
-        `http://localhost:3000/api/v1/questions/${questionId}/answers/${answerId}`,
+        `${baseUrl}/api/v1/questions/${questionId}/answers/${answerId}`,
         ["questions"]
       );
       // console.log(`this ${answerId} deleted`);
@@ -29,8 +31,10 @@ function AnswersCard({ answerDesc, questionId, answerId }) {
   async function handleUpdate() {
     if (desc !== tempDesc) {
       try {
+        const baseUrl =
+          process.env.NEXT_PUBLIC_API_URL || "http://localhost:3000";
         await patchData(
-          `http://localhost:3000/api/v1/questions/${questionId}/answers/${answerId}`,
+          `${baseUrl}/api/v1/questions/${questionId}/answers/${answerId}`,
           { description: tempDesc },
           ["questions"]
         );

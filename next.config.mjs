@@ -3,7 +3,6 @@
 import path from "path";
 import { fileURLToPath } from "url";
 
-
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
@@ -17,6 +16,15 @@ const nextConfig = {
       },
     };
     return config;
+  },
+  // Add configuration for static generation
+  experimental: {
+    // Enable static generation for dynamic routes
+    staticGenerationAsyncStorage: true,
+  },
+  // Configure which pages should be statically generated
+  generateStaticParams: async () => {
+    return [];
   },
 };
 

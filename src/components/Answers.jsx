@@ -30,9 +30,9 @@ function Answers({ title, description, answers, id }) {
   // console.log(answers);
   async function submit(data) {
     try {
-      await postData(`http://localhost:3000/api/v1/questions/${id}`, data, [
-        "questions",
-      ]);
+      const baseUrl =
+        process.env.NEXT_PUBLIC_API_URL || "http://localhost:3000";
+      await postData(`${baseUrl}/api/v1/questions/${id}`, data, ["questions"]);
       // console.log("answer added");
       reset();
     } catch (error) {

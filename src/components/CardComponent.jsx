@@ -10,11 +10,12 @@ const CardComponent = ({ question }) => {
   const time = new Date(question?.createdAt).toLocaleString();
   const handleDelete = async () => {
     try {
-      setLoading(true)
-      await deleteData(
-        `http://localhost:3000/api/v1/questions/${question._id}`,
-        ["questions"]
-      );
+      setLoading(true);
+      const baseUrl =
+        process.env.NEXT_PUBLIC_API_URL || "http://localhost:3000";
+      await deleteData(`${baseUrl}/api/v1/questions/${question._id}`, [
+        "questions",
+      ]);
     } catch (error) {
       console.log(error);
     } finally {
@@ -81,7 +82,7 @@ const CardComponent = ({ question }) => {
         component="button"
         sx={{
           width: { xs: "100%", lg: "5rem" },
-          backgroundColor:"inherit",
+          backgroundColor: "inherit",
           marginX: "1.5rem",
           marginTop: { xs: "0.75rem", lg: "0" },
           cursor: "pointer",

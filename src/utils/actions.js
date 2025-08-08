@@ -2,6 +2,11 @@
 
 import { revalidateTag } from "next/cache";
 
+// Utility function to get base API URL
+const getBaseUrl = () => {
+  return process.env.NEXT_PUBLIC_API_URL || "http://localhost:3000";
+};
+
 // import { revalidateTag } from "next/cache";
 
 export async function getData(url, tags) {
@@ -38,3 +43,6 @@ export async function deleteData(url, tags) {
   await fetch(url, { method: "DELETE" });
   revalidateTag(tags[0]);
 }
+
+// Export the utility function for use in components
+export { getBaseUrl };
