@@ -12,7 +12,7 @@ const CardComponent = ({ question }) => {
     try {
       setLoading(true);
       const baseUrl =
-        process.env.NEXT_PUBLIC_API_URL || "http://localhost:3000";
+        process.env.NEXT_PUBLIC_API_URL;
       await deleteData(`${baseUrl}/api/v1/questions/${question._id}`, [
         "questions",
       ]);

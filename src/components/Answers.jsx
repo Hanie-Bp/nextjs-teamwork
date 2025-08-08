@@ -31,7 +31,7 @@ function Answers({ title, description, answers, id }) {
   async function submit(data) {
     try {
       const baseUrl =
-        process.env.NEXT_PUBLIC_API_URL || "http://localhost:3000";
+        process.env.NEXT_PUBLIC_API_URL ;
       await postData(`${baseUrl}/api/v1/questions/${id}`, data, ["questions"]);
       // console.log("answer added");
       reset();
