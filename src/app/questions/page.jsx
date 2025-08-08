@@ -9,8 +9,20 @@ export const metadata = {
   description: "Questions page",
 };
 
+// Force dynamic rendering to prevent build-time issues
+export const dynamic = "force-dynamic";
+
 const page = async () => {
-  const fetchedData = await getData("http://localhost:3000/api/v1/questions",["questions"]);
+  let fetchedData = [];
+
+  try {
+    const baseUrl = process.env.NEXT_PUBLIC_API_URL || "http://localhost:3000";
+    fetchedData = await getData(`${baseUrl}/api/v1/questions`, ["questions"]);
+  } catch (error) {
+    console.error("Error fetching questions:", error);
+    // Return empty array for build time
+    fetchedData = [];
+  }
 
   return (
     <>
