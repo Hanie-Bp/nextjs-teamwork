@@ -14,7 +14,7 @@ function AnswersCard({ answerDesc, questionId, answerId }) {
     try {
       setLoading(true);
       const baseUrl =
-        process.env.NEXT_PUBLIC_API_URL || "http://localhost:3000";
+        process.env.NEXT_PUBLIC_API_URL;
       await deleteData(
         `${baseUrl}/api/v1/questions/${questionId}/answers/${answerId}`,
         ["questions"]
@@ -32,7 +32,7 @@ function AnswersCard({ answerDesc, questionId, answerId }) {
     if (desc !== tempDesc) {
       try {
         const baseUrl =
-          process.env.NEXT_PUBLIC_API_URL || "http://localhost:3000";
+          process.env.NEXT_PUBLIC_API_URL ;
         await patchData(
           `${baseUrl}/api/v1/questions/${questionId}/answers/${answerId}`,
           { description: tempDesc },

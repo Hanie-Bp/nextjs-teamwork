@@ -16,7 +16,7 @@ const page = async () => {
   let fetchedData = [];
 
   try {
-    const baseUrl = process.env.NEXT_PUBLIC_API_URL || "http://localhost:3000";
+    const baseUrl = process.env.NEXT_PUBLIC_API_URL;
     fetchedData = await getData(`${baseUrl}/api/v1/questions`, ["questions"]);
   } catch (error) {
     console.error("Error fetching questions:", error);

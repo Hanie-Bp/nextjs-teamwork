@@ -34,7 +34,7 @@ const QuestionForm = () => {
     setLoading(true);
     try {
       const baseUrl =
-        process.env.NEXT_PUBLIC_API_URL || "http://localhost:3000";
+        process.env.NEXT_PUBLIC_API_URL ;
       await postData(`${baseUrl}/api/v1/questions`, formData, ["questions"]);
     } catch (error) {
       console.error("Error saving question:", error);
