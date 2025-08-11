@@ -13,15 +13,24 @@ export const metadata = {
 export const dynamic = "force-dynamic";
 
 const page = async () => {
-  let fetchedData = [];
+  // let fetchedData = [];
 
+  // try {
+  //   const baseUrl = process.env.NEXT_PUBLIC_API_URL;
+  //   fetchedData = await getData(`${baseUrl}/api/v1/questions`, ["questions"]);
+  // } catch (error) {
+  //   console.error("Error fetching questions:", error);
+  //   // Return empty array for build time
+  //   fetchedData = [];
+  // }
+  
+  let fetchedData = [];
   try {
     const baseUrl = process.env.NEXT_PUBLIC_API_URL;
-    fetchedData = await getData(`${baseUrl}/api/v1/questions`, ["questions"]);
+    const res = await fetch(`${baseUrl}/api/v1/questions`, ["questions"]);
+    fetchedData = await res.json();
   } catch (error) {
     console.error("Error fetching questions:", error);
-    // Return empty array for build time
-    fetchedData = [];
   }
 
   return (
