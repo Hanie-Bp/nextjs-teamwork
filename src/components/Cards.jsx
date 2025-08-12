@@ -19,7 +19,7 @@ const CardComponent = dynamic(() => import("./CardComponent"), {
   ),
 });
 
-const Cards = ({ data }) => {
+const Cards = ({ data, onDeleteQuestion }) => {
   const searchParams = useSearchParams();
 
   const sortedData = data?.sort((a, b) => {
@@ -40,7 +40,11 @@ const Cards = ({ data }) => {
   return (
     <Box sx={{ marginBottom: "7rem", marginTop: "2.5rem" }}>
       {finalData?.map((q) => (
-        <CardComponent key={q._id} question={q} />
+        <CardComponent
+          key={q._id}
+          question={q}
+          onDeleteQuestion={onDeleteQuestion}
+        />
       ))}
     </Box>
   );

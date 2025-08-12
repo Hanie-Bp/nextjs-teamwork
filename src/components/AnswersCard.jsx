@@ -2,22 +2,26 @@
 import { Box, CircularProgress, TextField } from "@mui/material";
 import DeleteIcon from "@mui/icons-material/Delete";
 import React, { useState } from "react";
-import { deleteData, patchData } from "@/utils/actions";
+import { useRouter } from "next/navigation";
 
-function AnswersCard({ answerDesc, questionId, answerId }) {
+function AnswersCard({
+  answerDesc,
+  questionId,
+  answerId,
+  onUpdateAnswer,
+  onDeleteAnswer,
+}) {
   const [loading, setLoading] = useState(false);
   const [desc, setDesc] = useState(answerDesc);
   const [tempDesc, setTempDesc] = useState(answerDesc);
+  const router = useRouter();
 
   // delete an answer
   async function handleDelete() {
     try {
       setLoading(true);
-      const baseUrl = process.env.NEXT_PUBLIC_API_URL;
-      await deleteData(
-        `${baseUrl}/api/v1/questions/${questionId}/answers/${answerId}`,
-        ["questions"]
-      );
+      await onDeleteAnswer({ questionId, answerId });
+      router.refresh();
       // console.log(`this ${answerId} deleted`);
     } catch (error) {
       console.log(error);
@@ -30,13 +34,9 @@ function AnswersCard({ answerDesc, questionId, answerId }) {
   async function handleUpdate() {
     if (desc !== tempDesc) {
       try {
-        const baseUrl = process.env.NEXT_PUBLIC_API_URL;
-        await patchData(
-          `${baseUrl}/api/v1/questions/${questionId}/answers/${answerId}`,
-          { description: tempDesc },
-          ["questions"]
-        );
+        await onUpdateAnswer({ questionId, answerId, description: tempDesc });
         setDesc(tempDesc);
+        router.refresh();
         // console.log(`Answer ${answerId} updated`);
       } catch (error) {
         console.log("Error updating answer:", error);

@@ -2,19 +2,18 @@
 import { Box, CircularProgress, Typography } from "@mui/material";
 import Link from "next/link";
 import React, { useState } from "react";
+import { useRouter } from "next/navigation";
 import DeleteIcon from "@mui/icons-material/Delete";
-import { deleteData } from "@/utils/actions";
 
-const CardComponent = ({ question }) => {
+const CardComponent = ({ question, onDeleteQuestion }) => {
   const [loading, setLoading] = useState(false);
+  const router = useRouter();
   const time = new Date(question?.createdAt).toLocaleString();
   const handleDelete = async () => {
     try {
       setLoading(true);
-      const baseUrl = process.env.NEXT_PUBLIC_API_URL;
-      await deleteData(`${baseUrl}/api/v1/questions/${question._id}`, [
-        "questions",
-      ]);
+      await onDeleteQuestion(question._id);
+      router.refresh();
     } catch (error) {
       console.log(error);
     } finally {

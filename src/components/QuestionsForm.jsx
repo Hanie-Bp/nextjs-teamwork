@@ -1,12 +1,14 @@
 import React, { useState } from "react";
+import { useRouter } from "next/navigation";
 import { useForm } from "react-hook-form";
 import { TextField, Button, Box, Typography } from "@mui/material";
 import ConfirmModal from "./Modal";
-import { postData } from "@/utils/actions";
+import { createQuestion } from "@/utils/actions";
 import { useThemeContext } from "@/themeContext";
 
-const QuestionForm = () => {
+const QuestionForm = ({ onCreateQuestion }) => {
   const { isDarkMode } = useThemeContext();
+  const router = useRouter();
 
   const {
     register,
@@ -33,8 +35,9 @@ const QuestionForm = () => {
   const handleConfirm = async () => {
     setLoading(true);
     try {
-      const baseUrl = process.env.NEXT_PUBLIC_API_URL;
-      await postData(`${baseUrl}/api/v1/questions`, formData, ["questions"]);
+      if (onCreateQuestion) await onCreateQuestion(formData);
+      else await createQuestion(formData);
+      router.refresh();
     } catch (error) {
       console.error("Error saving question:", error);
     } finally {

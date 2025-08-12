@@ -9,14 +9,23 @@ import {
   Typography,
 } from "@mui/material";
 import React, { useState } from "react";
+import { useRouter } from "next/navigation";
 import AnswersCard from "./AnswersCard";
 import { useThemeContext } from "@/themeContext";
-import { patchData, postData } from "@/utils/actions";
 import { useForm } from "react-hook-form";
 import dynamic from "next/dynamic";
 
-function Answers({ title, description, answers, id }) {
+function Answers({
+  title,
+  description,
+  answers,
+  id,
+  onAddAnswer,
+  onUpdateAnswer,
+  onDeleteAnswer,
+}) {
   const { isDarkMode } = useThemeContext();
+  const router = useRouter();
   const {
     register,
     handleSubmit,
@@ -30,10 +39,9 @@ function Answers({ title, description, answers, id }) {
   // console.log(answers);
   async function submit(data) {
     try {
-      const baseUrl = process.env.NEXT_PUBLIC_API_URL;
-      await postData(`${baseUrl}/api/v1/questions/${id}`, data, ["questions"]);
-      // console.log("answer added");
+      await onAddAnswer({ questionId: id, description: data.description });
       reset();
+      router.refresh();
     } catch (error) {
       console.log(error);
     }
@@ -75,6 +83,8 @@ function Answers({ title, description, answers, id }) {
               answerDesc={item.description}
               questionId={id}
               answerId={item._id}
+              onUpdateAnswer={onUpdateAnswer}
+              onDeleteAnswer={onDeleteAnswer}
             />
           ))}
         </Stack>

@@ -1,4 +1,5 @@
 import HomePage from "@/components/HomePage";
+import { createQuestion } from "@/utils/actions";
 
 import { Box } from "@mui/material";
 
@@ -10,7 +11,7 @@ export const metadata = {
 export default function Home() {
   return (
     <Box>
-      <HomePage />
+      <HomePage onCreateQuestion={createQuestion} />
     </Box>
   );
 }

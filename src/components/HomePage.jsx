@@ -4,7 +4,7 @@ import QuestionForm from "./QuestionsForm";
 import { Container, Typography, Stack, Box, Button } from "@mui/material";
 import Image from "next/image";
 
-const HomePage = () => {
+const HomePage = ({ onCreateQuestion }) => {
   const { isDarkMode } = useThemeContext();
 
   return (
@@ -69,7 +69,7 @@ const HomePage = () => {
         </Box>
       </Stack>
 
-      <QuestionForm />
+      <QuestionForm onCreateQuestion={onCreateQuestion} />
     </Container>
   );
 };

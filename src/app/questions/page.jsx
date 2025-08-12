@@ -1,7 +1,7 @@
 import { Typography, Box } from "@mui/material";
 import SearchInput from "@/components/SearchInput";
 import Cards from "@/components/Cards";
-import { getData } from "@/utils/actions";
+import { getAllQuestions, deleteQuestion } from "@/utils/actions";
 import FilterCards from "@/components/FilterCards";
 
 export const metadata = {
@@ -24,14 +24,7 @@ const page = async () => {
   //   fetchedData = [];
   // }
 
-  let fetchedData = [];
-  try {
-    const baseUrl = process.env.NEXT_PUBLIC_API_URL;
-    const res = await fetch(`${baseUrl}/api/v1/questions`, ["questions"]);
-    fetchedData = await res.json();
-  } catch (error) {
-    console.error("Error fetching questions:", error);
-  }
+  const fetchedData = await getAllQuestions();
 
   return (
     <>
@@ -62,7 +55,7 @@ const page = async () => {
         </Box>
         <FilterCards />
       </Box>
-      <Cards data={fetchedData} />
+      <Cards data={fetchedData} onDeleteQuestion={deleteQuestion} />
     </>
   );
 };
