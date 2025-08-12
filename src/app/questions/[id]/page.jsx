@@ -8,10 +8,8 @@ export const dynamic = "force-dynamic";
 
 const page = async ({ params }) => {
   try {
-    const baseUrl = process.env.NEXT_PUBLIC_API_URL;
-    const info = await getData(`${baseUrl}/api/v1/questions/${params.id}`, [
-      "questions",
-    ]);
+    // Use server action with relative URL since we're on the server
+    const info = await getData(`/api/v1/questions/${params.id}`, ["questions"]);
     // console.log(info.answers);
 
     return (

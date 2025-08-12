@@ -13,7 +13,12 @@ export async function PATCH(request, { params }) {
       runValidators: true,
     });
     if (!answer) {
-      return res.status(404).json({ error: "Answer not found" });
+      return new Response(JSON.stringify({ error: "Answer not found" }), {
+        status: 404,
+        headers: {
+          "Content-Type": "application/json",
+        },
+      });
     }
     return new Response(JSON.stringify(answer), {
       headers: {
@@ -22,6 +27,12 @@ export async function PATCH(request, { params }) {
     });
   } catch (error) {
     console.error("Error updating the answer:", error);
+    return new Response(JSON.stringify({ error: "Internal server error" }), {
+      status: 500,
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
   } finally {
     await disconnectDB();
   }
@@ -34,7 +45,12 @@ export async function DELETE(req, { params }) {
     await connectDB();
     const answer = await Answer.findByIdAndDelete(answerId);
     if (!answer) {
-      return new Response("answer not found", { status: 404 });
+      return new Response(JSON.stringify({ error: "Answer not found" }), {
+        status: 404,
+        headers: {
+          "Content-Type": "application/json",
+        },
+      });
     }
 
     await Question.findByIdAndUpdate(
@@ -47,7 +63,13 @@ export async function DELETE(req, { params }) {
       headers: { "Content-Type": "application/json" },
     });
   } catch (error) {
-    console.error("Error deleting question:", error);
+    console.error("Error deleting answer:", error);
+    return new Response(JSON.stringify({ error: "Failed to delete answer" }), {
+      status: 500,
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
   } finally {
     await disconnectDB();
   }

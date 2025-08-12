@@ -30,9 +30,8 @@ function Answers({ title, description, answers, id }) {
   // console.log(answers);
   async function submit(data) {
     try {
-      const baseUrl =
-        process.env.NEXT_PUBLIC_API_URL ;
-      await postData(`${baseUrl}/api/v1/questions/${id}`, data, ["questions"]);
+      // Use server action with relative URL - it will handle the base URL construction
+      await postData(`/api/v1/questions/${id}`, data, ["questions"]);
       // console.log("answer added");
       reset();
     } catch (error) {

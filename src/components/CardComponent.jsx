@@ -11,11 +11,8 @@ const CardComponent = ({ question }) => {
   const handleDelete = async () => {
     try {
       setLoading(true);
-      const baseUrl =
-        process.env.NEXT_PUBLIC_API_URL;
-      await deleteData(`${baseUrl}/api/v1/questions/${question._id}`, [
-        "questions",
-      ]);
+      // Use server action with relative URL - it will handle the base URL construction
+      await deleteData(`/api/v1/questions/${question._id}`, ["questions"]);
     } catch (error) {
       console.log(error);
     } finally {

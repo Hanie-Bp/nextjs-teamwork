@@ -1,2 +1,14 @@
+# Database Configuration
 MONGO_URI="mongodb+srv://hanieh:NzIujf0tgx3M8w37@cluster1.izz9x.mongodb.net/QA"
+
+# API Configuration
 NEXT_PUBLIC_API_URL="http://localhost:3000"
+
+# Production Configuration (for Vercel, Netlify, etc.)
+# NEXTAUTH_URL="https://your-domain.com"
+# VERCEL_URL="https://your-domain.com"
+
+# Note: In production, set these environment variables:
+# - NEXTAUTH_URL: Your production domain
+# - VERCEL_URL: Your Vercel deployment URL (auto-set by Vercel)
+# - MONGO_URI: Your production MongoDB connection string

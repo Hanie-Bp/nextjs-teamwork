@@ -16,9 +16,14 @@ export async function GET() {
     });
   } catch (error) {
     console.error("Error fetching question:", error);
-    disconnectDB();
+    return new Response(JSON.stringify({ error: "Internal server error" }), {
+      status: 500,
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
   } finally {
-    disconnectDB();
+    await disconnectDB();
   }
 }
 
@@ -45,6 +50,6 @@ export async function POST(req) {
       }
     );
   } finally {
-    disconnectDB();
+    await disconnectDB();
   }
 }
