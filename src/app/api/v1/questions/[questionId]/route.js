@@ -11,12 +11,7 @@ export async function GET(req, { params }) {
       "answers"
     );
     if (!question) {
-      return new Response(JSON.stringify({ error: "Question not found" }), {
-        status: 404,
-        headers: {
-          "Content-Type": "application/json",
-        },
-      });
+      return new Response("question not found", { status: 404 });
     }
     return new Response(JSON.stringify(question), {
       headers: {
@@ -25,12 +20,6 @@ export async function GET(req, { params }) {
     });
   } catch (error) {
     console.error("Error fetching answers:", error);
-    return new Response(JSON.stringify({ error: "Internal server error" }), {
-      status: 500,
-      headers: {
-        "Content-Type": "application/json",
-      },
-    });
   } finally {
     await disconnectDB();
   }
@@ -56,12 +45,6 @@ export async function POST(request, { params }) {
     });
   } catch (error) {
     console.error("Error adding the answer:", error);
-    return new Response(JSON.stringify({ error: "Failed to add answer" }), {
-      status: 500,
-      headers: {
-        "Content-Type": "application/json",
-      },
-    });
   } finally {
     await disconnectDB();
   }
@@ -74,12 +57,7 @@ export async function DELETE(req, { params }) {
     await connectDB();
     const question = await Question.findOneAndDelete({ _id: questionId });
     if (!question) {
-      return new Response(JSON.stringify({ error: "Question not found" }), {
-        status: 404,
-        headers: {
-          "Content-Type": "application/json",
-        },
-      });
+      return new Response("question not found", { status: 404 });
     }
     console.log("Question deleted:", question);
     //   revalidateTag("questions");
@@ -88,15 +66,6 @@ export async function DELETE(req, { params }) {
     });
   } catch (error) {
     console.error("Error deleting question:", error);
-    return new Response(
-      JSON.stringify({ error: "Failed to delete question" }),
-      {
-        status: 500,
-        headers: {
-          "Content-Type": "application/json",
-        },
-      }
-    );
   } finally {
     await disconnectDB();
   }

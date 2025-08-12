@@ -13,10 +13,11 @@ function AnswersCard({ answerDesc, questionId, answerId }) {
   async function handleDelete() {
     try {
       setLoading(true);
-      // Use server action with relative URL - it will handle the base URL construction
-      await deleteData(`/api/v1/questions/${questionId}/answers/${answerId}`, [
-        "questions",
-      ]);
+      const baseUrl = process.env.NEXT_PUBLIC_API_URL;
+      await deleteData(
+        `${baseUrl}/api/v1/questions/${questionId}/answers/${answerId}`,
+        ["questions"]
+      );
       // console.log(`this ${answerId} deleted`);
     } catch (error) {
       console.log(error);
@@ -29,9 +30,9 @@ function AnswersCard({ answerDesc, questionId, answerId }) {
   async function handleUpdate() {
     if (desc !== tempDesc) {
       try {
-        // Use server action with relative URL - it will handle the base URL construction
+        const baseUrl = process.env.NEXT_PUBLIC_API_URL;
         await patchData(
-          `/api/v1/questions/${questionId}/answers/${answerId}`,
+          `${baseUrl}/api/v1/questions/${questionId}/answers/${answerId}`,
           { description: tempDesc },
           ["questions"]
         );

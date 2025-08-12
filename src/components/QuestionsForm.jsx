@@ -33,8 +33,8 @@ const QuestionForm = () => {
   const handleConfirm = async () => {
     setLoading(true);
     try {
-      // Use server action with relative URL - it will handle the base URL construction
-      await postData("/api/v1/questions", formData, ["questions"]);
+      const baseUrl = process.env.NEXT_PUBLIC_API_URL;
+      await postData(`${baseUrl}/api/v1/questions`, formData, ["questions"]);
     } catch (error) {
       console.error("Error saving question:", error);
     } finally {
